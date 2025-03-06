@@ -9,10 +9,25 @@ let placesToDonateTo = [
     ["https://www.launchgood.com/v4/campaign/palestine_mothers_and_babies?src=internal_discover", "Palestinian Mothers and Babies"]
   ];
 
+
+  const removeMusic = () => {
+    let video = document.querySelector("#video");
+    let audioContext = new AudioContext();
+  
+    const audioNode = audioContext.createMediaElementSource(video);
+    audioNode.connect(audioContext.destination);
+  }
+   
 document.addEventListener('DOMContentLoaded', () => {
     let donationLink = document.querySelector("#donation-link");
     let num = Math.floor(Math.random() * placesToDonateTo.length);
     let message = placesToDonateTo[num][1];
     donationLink.textContent = message;
     donationLink.href = placesToDonateTo[num][0];
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.hostname === "www.youtube.com") {
+    removeMusic();
+  }
 });

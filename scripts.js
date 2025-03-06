@@ -8,16 +8,10 @@ let placesToDonateTo = [
     ["https://www.launchgood.com/v4/campaign/fuel_your_health_building_a_free_clinic_in_uganda?src=", "a Ugandan Clinic"],
     ["https://www.launchgood.com/v4/campaign/palestine_mothers_and_babies?src=internal_discover", "Palestinian Mothers and Babies"]
   ];
-
-
-  const removeMusic = () => {
-    let video = document.querySelector("#video");
-    let audioContext = new AudioContext();
-  
-    const audioNode = audioContext.createMediaElementSource(video);
-    audioNode.connect(audioContext.destination);
-  }
    
+let musiclessToggle = document.getElementById("music-toggle");  
+let musicless = musicToggle.checked;
+
 document.addEventListener('DOMContentLoaded', () => {
     let donationLink = document.querySelector("#donation-link");
     let num = Math.floor(Math.random() * placesToDonateTo.length);
@@ -27,7 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.hostname === "www.youtube.com") {
+  let shouldRemove = chrome.localStorage.get('musicless');
+  if (window.location.hostname === "www.youtube.com" && shouldRemove) {
     removeMusic();
   }
 });
+
+musiclessToggle.addEventListener('change', () => {
+  musicless = musiclessToggle.checked;
+  chrome.localStorage.set({musicless: musicless});
+})
+
+const removeMusic = () => {
+  let video = document.querySelector("#video");
+  let audioContext = new AudioContext();
+
+  const audioNode = audioContext.createMediaElementSource(video);
+  audioNode.connect(audioContext.destination);
+
+  let biquadFilter = audioContext.createBiquadFilter();
+  biquadFilter.type = "highpass";
+  biquadFilter.frequency.value = 1000;
+
+  audioNode.connect(biquadFilter);
+  biquadFilter.connect(audioContext.destination);
+
+}

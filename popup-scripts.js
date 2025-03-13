@@ -1,3 +1,12 @@
+let input = document.querySelector("input");
+let container = document.querySelector(".container");
+
+input.addEventListener('change', () => {
+    let musicless = input.checked;
+    localStorage.setItem("musicless", musicless);
+    container.style.background = musicless ? "#000030" : "#D6C5FC";
+});
+
 let placesToDonateTo = [
     ["https://irusa.org/middle-east/palestine/", "Palestine"],
     ["https://www.launchgood.com/communitypage/syria_1#!/community/syria_1/", "Syria"],

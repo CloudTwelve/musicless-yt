@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   let shouldRemove = chrome.localStorage.get('musicless');
-  if (window.location.hostname === "www.youtube.com" && shouldRemove) {
+  if (shouldRemove) {
     removeMusic();
   }
 });

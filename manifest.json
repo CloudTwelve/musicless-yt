@@ -1,4 +1,34 @@
 {
-    "name": "musiclessYT"
-    "":
+    "name": "musiclessYT",
+    "description": "Remove music from YouTube videos",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "author": "Reem A.",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "icons": {
+        "16": "icons/icon16.jpg",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.jpg",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        },
+        "default_title": "musiclessYT"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://www.youtube.com/*"],
+            "js": ["scripts.js"]
+        }
+    ],
+    "host_permissions": [
+        "https://www.youtube.com/*"
+    ]
 }
